@@ -148,7 +148,7 @@ const scroll = (direction) => {
         "
       >
         <video
-          src="/mockup-drama.mp4"
+          src="/reel-drama.mp4"
           className="absolute inset-0 w-full h-full object-cover"
           muted
           loop

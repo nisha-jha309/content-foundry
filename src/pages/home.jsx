@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { Link } from "react-router";
 import logos from "../data/logo";
 import WebsiteGif from "../../src/assets/content-foundry-show-reel.mp4";
-import mockupDrama from "../../public/mockup-drama.mp4";
+import mockupDrama from "../../public/reel-drama.mp4";
 import heroNaJaneKyu from "../../src/assets/hero-na-jane-kyu.webp";
 import naJaneKyu from "../../src/assets/na-jane-kyu.webp";
 import campusDiaries from "../../src/assets/campus-diaries.webp";
