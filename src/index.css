@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #181713;
+  --color-cream: #f5f1e9;
+  --color-paper: #fffdf8;
+  --color-line: #d5cec3;
+  --color-violet: #763F98;
+  --color-purple: #502e55;
+    --color-amp: #1f1b24;
+  --color-plum: #211e22;
+  --color-proof: #201e1a;
+    --color-dark: #171613;
+     --color-beige: #eee6db;
+  --color-offer: #e8e0d5;
+
+  --color-note: #fff7d9;
+  --color-brown: #4a3c20;
+
+  --color-muted: #4c4841;
+  --color-muted-dark: #655f57;
+  --color-muted-light: #d9d2cc;
+
+  --color-peach: #f6ae91;
+  --color-peach-light: #ffe2ca;
+
+    --background-image-hero-art:
+    linear-gradient(
+      155deg,
+      #e99a68 0%,
+      #6f3f59 48%,
+      #221e35 100%
+    );
+
+  --background-image-story:
+    linear-gradient(
+      10deg,
+      #241e32 0%,
+      #61465d 46%,
+      #d8936a 100%
+    );
+
+  --background-image-story-alt:
+    linear-gradient(
+      35deg,
+      #242640,
+      #554471 60%,
+      #b9a3bd
+    );
+
+  --background-image-phone:
+    linear-gradient(
+      170deg,
+      #e99a68 0%,
+      #6f3f59 45%,
+      #221e35 100%
+    );
+
+  --background-image-reel:
+    linear-gradient(
+      130deg,
+      #291e32 5%,
+      #644054 46%,
+      #d08460 100%
+    );
+
+  --background-image-scroll-1:
+    linear-gradient(
+      140deg,
+      #6c445b,
+      #2d233c
+    );
+
+  --background-image-scroll-2:
+    linear-gradient(
+      140deg,
+      #6f6e56,
+      #2b3b41
+    );
+
+  --background-image-scroll-3:
+    linear-gradient(
+      140deg,
+      #45606d,
+      #192b3e
+    );
+
+  --background-image-scroll-4:
+    linear-gradient(
+      140deg,
+      #a7765b,
+      #403746
+    );
+
+  --background-image-scroll-5:
+    linear-gradient(
+      140deg,
+      #615776,
+      #25263e
+    );
+
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: "DM Sans", Arial, Helvetica, sans-serif;
+}
+
+button {
+  font: inherit;
+}
+
+@keyframes logo-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-logo-scroll {
+  animation: logo-scroll 20s linear infinite;
+}
