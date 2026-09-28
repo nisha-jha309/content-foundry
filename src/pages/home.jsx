@@ -121,8 +121,8 @@ const Home = () => {
             </p>
           </div>
         </div>
-        <div className="relative mt-[30px] min-h-[350px] w-100vw overflow-hidden lg:min-h-[500px]">
-          <video autoPlay loop muted playsInline className="absolute inset-0 h-full w-full object-cover" src={WebsiteGif} title="Website Gif" />
+        <div className=" mt-[30px] w-full overflow-hidden ">
+          <video autoPlay loop muted playsInline className="block h-auto w-full h-auto object-cover" src={WebsiteGif} title="Website Gif" />
         </div>
       </section>
 
