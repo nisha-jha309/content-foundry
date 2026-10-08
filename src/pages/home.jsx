@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import {GoArrowLeft,GoArrowRight} from "react-icons/go"
 import { Link } from "react-router";
 import logos from "../data/logo";
 import WebsiteGif from "../../src/assets/content-foundry-show-reel.mp4";
@@ -14,6 +15,7 @@ import content from "../data/scrollCard";
 const Home = () => {
   const moreWorkRef = useRef(null);
 
+
   const scrollWork = (direction) => {
     moreWorkRef.current?.scrollBy({
       left: direction * 400,
@@ -21,6 +23,58 @@ const Home = () => {
     });
   };
 
+  const seriesRef = useRef(null);
+
+  const seriesScrollWork = (direction) => {
+   seriesRef.current?.scrollBy({
+      left: direction * 400,
+      behavior: "smooth",
+    });
+  };
+
+  const seriesData = [
+    {
+      image: naJaneKyu,
+      badge: "Live Shoot",
+      category: "10 episodes",
+      title: "Na Jane Kyu",
+      action: "Watch the series ↗",
+      href: "https://drive.google.com/drive/folders/1QXgc0IrbJApkh5S4xiy4BPzbbZrnoqvl?usp=sharing",
+      type: "link",
+    },
+    {
+      image: campusDiaries,
+      badge: "AI video",
+      category: "Campus series",
+      title: "Campus Diary",
+      action: "Coming soon",
+      type: "text",
+    },
+    {
+      image: naJaneKyu,
+      badge: "Original",
+      category: "10 episodes",
+      title: "The Untold Story",
+      action: "Coming soon",
+      type: "text",
+    },
+    {
+      image: campusDiaries,
+      badge: "AI video",
+      category: "New series",
+      title: "Beyond Campus",
+      action: "Coming soon",
+      type: "text",
+    },
+    {
+      image: naJaneKyu,
+      badge: "Live Shoot",
+      category: "Original series",
+      title: "Unfiltered",
+      action: "Coming soon",
+      type: "text",
+    },
+  ];
   const feed = [{
     title: "Discovery",
     chips: [
@@ -82,8 +136,8 @@ const Home = () => {
         </div>
 
         {/* Hero Artwork */}
-        <div className="relative flex min-h-[480px] items-center justify-center overflow-hidden bg-purple lg:min-h-[500px] overflow-hidden">
-          <img src={heroNaJaneKyu} alt="na jane kyu banner" className="w-full h-full object-cover hover:scale-[1.08] transition-transform duration-300 ease" />
+        <div className="relative flex items-center justify-center overflow-hidden bg-purple lg:min-h-[500px] overflow-hidden">
+          <img src={heroNaJaneKyu} alt="na jane kyu banner" className="w-full h-auto md:h-full object-cover hover:scale-[1.08] transition-transform duration-300 ease" />
         </div>
       </section>
 
@@ -222,14 +276,27 @@ const Home = () => {
             </h2>
           </div>
 
-          <p className="text-base leading-[1.6] text-muted max-w-[420px]">
-            Shot with real actors or made with AI.
-          </p>
+          <div className="flex flex-col gap-4 max-[800px]:mt-6">
+            <div className="flex gap-2">
+              <button type="button" onClick={() => seriesScrollWork(-1)} className="h-[45px] w-[45px] cursor-pointer border border-[#27231f] bg-transparent text-[22px] hover:bg-violet hover:text-white hover:border-violet" >
+                ←
+              </button>
+
+              <button type="button" onClick={() => seriesScrollWork(1)} aria-label="Scroll work right" className="h-[45px] w-[45px] cursor-pointer border border-[#27231f] bg-transparent text-[22px]  hover:bg-violet hover:text-white hover:border-violet" >
+                →
+              </button>
+            </div>
+            <p className="text-base leading-[1.6] text-muted max-w-[420px]">
+              Shot with real actors or made with AI.
+            </p>
+          </div>
+
 
         </div>
 
-        <div className="grid grid-cols-[1.4fr_1fr] gap-[18px] mt-[35px] max-[800px]:grid-cols-1">
-
+        {/* <div className="grid grid-cols-[1.4fr_1fr] gap-[18px] mt-[35px] max-[800px]:grid-cols-1"> */}
+        <div className="flex gap-4 overflow-scroll scrollbar-none mt-[35px]" ref={seriesRef}>
+          {/* 
           <article className="group relative min-h-[420px] text-white overflow-hidden">
             <div className="z-0 absolute inset-0 group-hover:scale-[1.08] transition-transform duration-300 ease">
               <img src={naJaneKyu} alt="" className="w-full h-full object-cover" />
@@ -259,7 +326,53 @@ const Home = () => {
               <span className="self-start mt-[25px] font-extrabold border-b border-white pb-[5px]">Coming soon</span>
             </div>
 
-          </article>
+          </article> */}
+
+          {seriesData.map((item, index) => (
+            <article
+              key={index}
+              className="group relative min-h-[300px] md:min-h-[420px]  flex-1 min-w-[350px] text-white overflow-hidden"
+            >
+              <div className="z-0 absolute inset-0 group-hover:scale-[1.08] transition-transform duration-300 ease">
+                <img
+                  src={item.image}
+                  alt=""
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
+              <div className="z-0 absolute inset-0 bg-black/60"></div>
+
+              <div className="z-1 absolute inset-0 p-7 flex flex-col justify-end">
+                <span className="absolute top-7 left-7 bg-white text-[#222] px-3 py-[9px] text-[11px] font-black uppercase">
+                  {item.badge}
+                </span>
+
+                <small className="tracking-[0.17em] uppercase font-extrabold">
+                  {item.category}
+                </small>
+
+                <h3 className="font-serif text-[45px] my-3">
+                  {item.title}
+                </h3>
+
+                {item.type === "link" ? (
+                  <a
+                    className="self-start mt-[25px] font-extrabold border-b border-white pb-[5px]"
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    {item.action}
+                  </a>
+                ) : (
+                  <span className="self-start mt-[25px] font-extrabold border-b border-white pb-[5px]">
+                    {item.action}
+                  </span>
+                )}
+              </div>
+            </article>
+          ))}
 
         </div>
       </section>
@@ -269,9 +382,8 @@ const Home = () => {
         <div className="max-w-[1440px] mx-auto px-[5vw]">
           <div className="uppercase tracking-[0.19em] text-xs mb-4 font-black text-violet">For companies</div>
           <h2 className="font-serif text-[clamp(36px,4vw,66px)] leading-[1.03] tracking-[-0.04em] my-[13px_0_25px]">
-            Your product, inside a story
-            <br />
-            your customers follow.
+            Your product, inside a story 
+            <br className="hidden md:block"/> your customers follow.
           </h2>
           <div className="grid grid-cols-4 gap-[15px] mt-[35px] max-[900px]:grid-cols-1">
 
@@ -349,7 +461,7 @@ const Home = () => {
 
           </div>
 
-          <div className="grid grid-cols-[1fr_1.6fr] gap-10 items-center bg-ink text-white p-10 mt-10 max-[900px]:grid-cols-1 max-[900px]:p-7">
+          {/* <div className="grid grid-cols-[1fr_1.6fr] gap-10 items-center bg-ink text-white p-10 mt-10 max-[900px]:grid-cols-1 max-[900px]:p-7">
 
             <div>
               <h3 className="font-serif text-[32px] m-0 mb-[10px]">
@@ -378,7 +490,7 @@ const Home = () => {
 
             </div>
 
-          </div>
+          </div> */}
 
         </div>
       </section>
@@ -480,7 +592,7 @@ const Home = () => {
         <div className="mx-auto grid max-w-[1200px] grid-cols-1 gap-12 px-6 md:px-10 lg:grid-cols-2 lg:items-center lg:gap-20">
 
           {/* Cover */}
-          <div className="relative max-w-[300px]">
+          <div className="relative md:min-w-[450px] md:max-w-[300px]">
             <img src={founderMagazine} alt="Harshita Adlakha on the cover of Entrepreneurs Today, 30 Under 30 special issue, July 2024" className="block w-full" />
 
             <span className="absolute -right-8 top-4 bg-violet px-3 py-1 text-sm font-bold text-white rotate-45">
@@ -670,301 +782,396 @@ const Home = () => {
       </section>
 
       {/* WORK */}
-      <section id="work" className="bg-[#eee6db] py-[70px] lg:py-[85px]">
-        <div className="flex flex-col justify-between gap-5 px-[5vw] lg:flex-row lg:items-end">
+     
+
+       <section id="work" className="bg-[#eee6db] py-[60px] sm:py-[70px] lg:py-[85px]">
+        {/* ================= HEADER ================= */}
+        <div
+          className="
+      flex flex-col gap-6
+      px-[5vw]
+      sm:gap-5
+      lg:flex-row
+      lg:items-end
+      lg:justify-between
+    "
+        >
           <div>
-            <div className="text-[12px] font-black uppercase tracking-[0.19em] text-violet">
+            <div
+              className="
+          text-[11px]
+          font-black
+          uppercase
+          tracking-[0.19em]
+          text-violet
+          sm:text-xs
+        "
+            >
               Keep exploring
             </div>
 
-            <h2 className="mt-[13px] font-serif text-[clamp(36px,4vw,66px)] leading-[1.03] tracking-[-0.04em]">
+            <h2
+              className="
+          mt-[13px]
+          max-w-[700px]
+          font-serif
+          text-[clamp(36px,8vw,66px)]
+          leading-[1.03]
+          tracking-[-0.04em]
+        "
+            >
               More stories. More formats.
             </h2>
           </div>
 
+          {/* ================= ARROWS ================= */}
           <div className="flex gap-2">
-            <button type="button" onClick={() => scrollWork(-1)} className="h-[45px] w-[45px] cursor-pointer border border-[#27231f] bg-transparent text-[22px] hover:bg-violet hover:text-white hover:border-violet" >
-              ←
+            <button
+              type="button"
+              onClick={() => scrollWork(-1)}
+              aria-label="Scroll work left"
+              className="
+          flex
+          h-11
+          w-11
+          cursor-pointer
+          items-center
+          justify-center
+          border
+          border-[#27231f]
+          bg-transparent
+          text-xl
+          transition-colors
+          duration-200
+          hover:border-violet
+          hover:bg-violet
+          hover:text-white
+        "
+            >
+              <GoArrowLeft />
             </button>
 
-            <button type="button" onClick={() => scrollWork(1)} aria-label="Scroll work right" className="h-[45px] w-[45px] cursor-pointer border border-[#27231f] bg-transparent text-[22px]  hover:bg-violet hover:text-white hover:border-violet" >
-              →
+            <button
+              type="button"
+              onClick={() => scrollWork(1)}
+              aria-label="Scroll work right"
+              className="
+          flex
+          h-11
+          w-11
+          cursor-pointer
+          items-center
+          justify-center
+          border
+          border-[#27231f]
+          bg-transparent
+          text-xl
+          transition-colors
+          duration-200
+          hover:border-violet
+          hover:bg-violet
+          hover:text-white
+        "
+            >
+              <GoArrowRight />
             </button>
           </div>
         </div>
-        {/* <div ref={moreWorkRef} className="mt-[30px] flex gap-4 overflow-x-auto px-[5vw] pb-[18px] [scroll-snap-type:x_mandatory] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          {content.map((card, index) => (
-            <div className={`group relative min-w-[300px] h-[350px] aspect-[4/3] shrink-0 rounded-[20px]`}>
-              <img src={card.thumbnail} alt="" className="relative w-full h-full object-cover" />
-              <div className="z-100 absolute inset-0 bg-black/50"></div>
-              <div className="z-1000 absolute inset-0 text-white flex flex-col justify-between p-4 group-hover:p-5">
-                <span className="font-black text-lg">{card.number} / {card.type}</span>
-                <div>
-                  <h3 className="mb-3">{card.title}</h3>
-                  {index > 0 && (<a href={card.href} target="_blank" rel="noopener noreferrer" className="border-b-[3px] border-line pb-1 text-lg font-black ">
-                    {card.link}
-                  </a>)}
-                  {index === 0 && (<Link to={`/micro-drama/${card.slug}`} rel="noopener noreferrer" className="border-b-[3px] border-line pb-1 text-lg font-black ">
-                    {card.link}
-                  </Link>)}
 
-                </div>
-
-              </div>
-
-            </div>
-          ))}
-        </div> */}
-<div className="w-full overflow-visible">
-  <div
-    ref={moreWorkRef}
-    className="
-      mt-[30px]
-      w-full
-      flex
-      gap-4
-      overflow-x-auto
-      overflow-y-visible
-      px-[5vw]
-      pt-[70px]
-      pb-[100px]
-      [scrollbar-width:none]
-      [&::-webkit-scrollbar]:hidden
-    "
-  >
-    {content.map((card, index) => (
-      <div
-        key={card.slug || index}
-        className="
-          group
-          relative
-          w-[300px]
-          min-w-[300px]
-          h-[350px]
-          shrink-0
-          cursor-pointer
-          overflow-visible
-          hover:z-[100]
-        "
-      >
-        {/* CARD */}
-        <div
-          className="
-            absolute
-            left-0
-            top-0
-            w-full
-            h-[350px]
-
-            overflow-hidden
-            rounded-xl
-            bg-black
-
-            transition-[height,transform,box-shadow]
-            duration-300
-            ease-out
-
-            group-hover:h-[460px]
-            group-hover:-translate-y-[35px]
-            group-hover:rounded-xl
-            group-hover:shadow-2xl
-          "
-        >
-          {/* IMAGE */}
-          <img
-            src={card.thumbnail}
-            alt={card.title}
-            className="
-              absolute
-              inset-0
-              w-full
-              h-full
-              object-cover
-
-              transition-transform
-              duration-500
-              ease-out
-
-              group-hover:scale-105
-            "
-          />
-
-          {/* DARK GRADIENT */}
+        {/* ================= CARDS ================= */}
+        <div className="mt-6 w-full overflow-visible sm:mt-[30px]">
           <div
+            ref={moreWorkRef}
             className="
-              absolute
-              inset-0
-              bg-gradient-to-t
-              from-black
-              via-black/20
-              to-transparent
-            "
-          />
+        flex
+        w-full
+        gap-4
+        overflow-x-auto
+        overflow-y-visible
+        px-[5vw]
+        pt-[30px]
+        pb-[40px]
 
-          {/* NUMBER */}
-          <div
-            className="
-              absolute
-              top-3
-              left-3
-              z-20
-              text-white
-              font-black
-              text-lg
-            "
+        sm:pt-[70px]
+        sm:pb-[100px]
+
+        [scrollbar-width:none]
+        [&::-webkit-scrollbar]:hidden
+      "
           >
-            {String(card.number).padStart(2, "0")}
-          </div>
+            {content.map((card, index) => (
+              <div
+                key={card.slug || index}
+                className="
+            group
+            relative
+            h-[330px]
+            w-[82vw]
+            min-w-[82vw]
+            shrink-0
+            cursor-pointer
 
-          {/* CARD TITLE */}
-          <div
-            className="
+            sm:h-[350px]
+            sm:w-[300px]
+            sm:min-w-[300px]
+
+            sm:hover:z-[100]
+          "
+              >
+                {/* ================= CARD ================= */}
+                <div
+                  className="
               absolute
               left-0
-              right-0
-              bottom-0
-              z-20
-              p-4
+              top-0
+              h-[330px]
+              w-full
+              overflow-hidden
+              rounded-xl
+              bg-black
 
-              transition-all
+              transition-[height,transform,box-shadow]
               duration-300
               ease-out
 
-              group-hover:bottom-[130px]
+              sm:h-[350px]
+              sm:group-hover:h-[460px]
+              sm:group-hover:-translate-y-[35px]
+              sm:group-hover:shadow-2xl
             "
-          >
-            <span
-              className="
-                text-xs
-                uppercase
-                tracking-wider
-                text-white/70
-              "
-            >
-              {card.type}
-            </span>
+                >
+                  {/* ================= IMAGE ================= */}
+                  <img
+                    src={card.thumbnail}
+                    alt={card.title}
+                    className="
+                absolute
+                inset-0
+                h-full
+                w-full
+                object-cover
 
-            <h3
-              className="
-                mt-1
+                transition-transform
+                duration-500
+                ease-out
+
+                sm:group-hover:scale-105
+              "
+                  />
+
+                  {/* ================= DARK GRADIENT ================= */}
+                  <div
+                    className="
+                absolute
+                inset-0
+                bg-gradient-to-t
+                from-black
+                via-black/20
+                to-transparent
+              "
+                  />
+
+                  {/* ================= NUMBER ================= */}
+                  <div
+                    className="
+                absolute
+                left-4
+                top-4
+                z-20
                 text-lg
-                font-bold
-                leading-tight
+                font-black
                 text-white
               "
-            >
-              {card.title}
-            </h3>
-          </div>
+                  >
+                    {String(card.number).padStart(2, "0")}
+                  </div>
 
-          {/* HOVER PANEL */}
-          <div
-            className="
-              absolute
-              left-0
-              right-0
-              bottom-0
-              z-30
+                  {/* ================= CARD CONTENT ================= */}
+                  <div
+                    className="
+                absolute
+                bottom-0
+                left-0
+                right-0
+                z-20
+                p-5
 
-              min-h-[130px]
-
-              rounded-b-xl
-              bg-[#171717]
-
-              p-4
-              text-white
-
-              translate-y-full
-              opacity-0
-
-              transition-all
-              duration-300
-              ease-out
-
-              group-hover:translate-y-0
-              group-hover:opacity-100
-            "
-          >
-            {/* DESCRIPTION */}
-            {card.description && (
-              <p
-                className="
-                  mb-4
-                  line-clamp-3
-                  text-sm
-                  leading-5
-                  text-white/80
+                sm:transition-all
+                sm:duration-300
+                sm:ease-out
+                sm:group-hover:bottom-[130px]
+              "
+                  >
+                    <span
+                      className="
+                  text-[10px]
+                  uppercase
+                  tracking-[0.15em]
+                  text-white/70
                 "
-              >
-                {card.description}
-              </p>
-            )}
+                    >
+                      {card.type}
+                    </span>
 
-            {/* LINK */}
-            {index === 0 ? (
-              <Link
-                to={`/micro-drama/${card.slug}`}
-                className="
-                  inline-flex
-                  items-center
-                  gap-2
-
-                  rounded-full
-                  bg-red-600
-
-                  px-4
-                  py-2
-
-                  text-sm
+                    <h3
+                      className="
+                  mt-1
+                  max-w-[90%]
+                  text-xl
                   font-bold
+                  leading-tight
                   text-white
-
-                  transition-colors
-                  duration-200
-
-                  hover:bg-red-500
                 "
-              >
-                {card.link || "Play Now"}
-                <span className="text-xs">▶</span>
-              </Link>
-            ) : (
-              <a
-                href={card.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="
-                  inline-flex
-                  items-center
-                  gap-2
+                    >
+                      {card.title}
+                    </h3>
 
-                  rounded-full
-                  bg-red-600
+                    {/* ================= MOBILE CTA ================= */}
+                    <div className="mt-4 sm:hidden">
+                      {index === 0 ? (
+                        <Link
+                          to={`/micro-drama/${card.slug}`}
+                          className="
+                      inline-flex
+                      items-center
+                      gap-2
+                      bg-red-600
+                      px-4
+                      py-2
+                      text-xs
+                      font-bold
+                      text-white
+                      transition-opacity
+                      duration-200
+                      hover:opacity-80
+                    "
+                        >
+                          {card.link || "Play Now"}
+                          
+                        </Link>
+                      ) : (
+                        <a
+                          href={card.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="
+                      inline-flex
+                      items-center
+                      gap-2
+                      bg-red-600
+                      px-4
+                      py-2
+                      text-xs
+                      font-bold
+                      text-white
+                      transition-opacity
+                      duration-200
+                      hover:opacity-80
+                    "
+                        >
+                          {card.link || "View Work"}
+                        </a>
+                      )}
+                    </div>
+                  </div>
 
-                  px-4
-                  py-2
+                  {/* ================= DESKTOP HOVER PANEL ================= */}
+                  <div
+                    className="
+                absolute
+                bottom-0
+                left-0
+                right-0
+                z-30
+                hidden
+                min-h-[130px]
+                rounded-b-xl
+                bg-[#171717]
+                p-4
+                text-white
 
-                  text-sm
-                  font-bold
-                  text-white
+                translate-y-full
+                opacity-0
 
-                  transition-colors
-                  duration-200
+                transition-all
+                duration-300
+                ease-out
 
-                  hover:bg-red-500
-                "
-              >
-                {card.link || "View Work"}
-                <span className="text-xs">▶</span>
-              </a>
-            )}
+                sm:block
+                sm:group-hover:translate-y-0
+                sm:group-hover:opacity-100
+              "
+                  >
+                    {/* DESCRIPTION */}
+                    {card.description && (
+                      <p
+                        className="
+                    mb-4
+                    line-clamp-3
+                    text-sm
+                    leading-5
+                    text-white/80
+                  "
+                      >
+                        {card.description}
+                      </p>
+                    )}
+
+                    {/* DESKTOP LINK */}
+                    {index === 0 ? (
+                      <Link
+                        to={`/micro-drama/${card.slug}`}
+                        className="
+                    inline-flex
+                    items-center
+                    gap-2
+                    rounded-full
+                    bg-red-600
+                    px-4
+                    py-2
+                    text-sm
+                    font-bold
+                    text-white
+                    transition-colors
+                    duration-200
+                    hover:bg-red-500
+                  "
+                      >
+                        {card.link || "Play Now"}
+                      </Link>
+                    ) : (
+                      <a
+                        href={card.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="
+                    inline-flex
+                    items-center
+                    gap-2
+                    rounded-full
+                    bg-red-600
+                    px-4
+                    py-2
+                    text-sm
+                    font-bold
+                    text-white
+                    transition-colors
+                    duration-200
+                    hover:bg-red-500
+                  "
+                      >
+                        {card.link || "View Work"}
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
-      </div>
-    ))}
-  </div>
-</div>
       </section>
+
+      
 
       {/* CONTACT CTA */}
       <section className="bg-violet py-[90px] text-white">
